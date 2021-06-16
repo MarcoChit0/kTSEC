@@ -1,53 +1,81 @@
+
 #include <iostream>
 #include <vector> 
-#include <utility> 
+#include <utility>
 
-class arc { 
-    public  : 
-        void PrintArc(); 
-        void CreateArc(int s, int d);
-        void ChangeCover( int c); 
-        void AddTrail(); 
-        int InformNumberOfTrails();
+using namespace std; 
 
-    private : 
+class arc{
+    public: 
+        // create a new arc given a source a.first and a destiny a.second vertices
+        void create( pair <int, int> a){
+            edge.first = a.first; 
+            edge.second = a.second; 
+            trails = 0; 
+            coveredBy = 0;
+        }
+
+        void addTrail(arc &a){
+            a.trails ++; 
+        }
+
+        void print(){
+                cout <<"arc     :   "<<edge.first << "  ->  "<<edge.second << endl; 
+                cout <<"#trails :   "<<trails<<endl;
+                cout <<"covered :   "<<coveredBy<< endl<<endl;     
+        }
+
+        private:    
+        // source   =   edge.first 
+        // destiny  =   edge.second 
+        pair <int, int> edge;      
+        // indicates how many trails covers this arc
+        int trails; 
+        // indicates what trail covers this arc
         int coveredBy; 
-            // number of trails that cover that arc
-        int numberOfTrails; 
-            // first    =   source 
-            // second   =   destiny 
-        std::pair <int, int> edge; 
-}; 
+
+        friend class trail; 
+};
 
 
-class trail {
-
-    public : 
-        void    PrintTrail();
-        void    CreateTrail(std::vector <arc> new_trail); 
-        void    ChangeHead( int new_head);
-        void    ChangeTail( int new_tail);
-        int     return_size(); 
-        int     Return_numberOfTrails(); 
-
-    private : 
-        std::vector < arc > t; 
-        int numberOfTrails;
+class trail{ 
+    public: 
+        trail create(vector <arc> &list){
+            trail aux; 
+            aux.numberOfTrails=0;
+            for(int i=0; i<list.size(); i++){list.at(i).addTrail();aux.numberOfTrails+= list.at(i).trails;}
+            aux.head = 0; 
+            if(!list.empty()){aux.tail = list.size() - 1; } else{aux.tail = -1; }
+            aux.t = list;
+            return aux;
+        }
+        void print(){
+            for(int i=0; i<t.size(); i++){  
+                cout <<"trail   :   "<<i<<endl; t.at(i).print();}
+        } 
+    private: 
+        vector <arc> t; 
         int head; 
         int tail; 
-        int size; 
+        int numberOfTrails; 
+
+        friend class set; 
 };
+
+
 
 class set{ 
     public: 
-        void CreateSet(std::vector <trail> new_setOfTrails); 
-        void AddTrail(trail new_trail);
-        void QuickSort();  
-        void PrintSet(); 
+        set create(vector <trail> &new_set){ 
+            set aux; 
+            aux.s = new_set;
+            return aux;
+        }
+        void print(){
+            for(int i=0; i<s.size(); i++){
+                cout << "set    :   "<<i<<endl; s.at(i).print(); 
+            }
+        }
     private: 
-        std::vector <trail> trails;
-        std::vector <int> size; 
-        std::vector <int> numberOfTrails; 
+        vector <trail> s;  
 };
-
-
