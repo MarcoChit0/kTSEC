@@ -1,81 +1,50 @@
-
 #include <iostream>
 #include <vector> 
 #include <utility>
 
 using namespace std; 
 
-class arc{
-    public: 
-        // create a new arc given a source a.first and a destiny a.second vertices
-        void create( pair <int, int> a){
-            edge.first = a.first; 
-            edge.second = a.second; 
-            trails = 0; 
-            coveredBy = 0;
-        }
+class Vertex {
+    private:
+        int number;
 
-        void addTrail(arc &a){
-            a.trails ++; 
-        }
-
-        void print(){
-                cout <<"arc     :   "<<edge.first << "  ->  "<<edge.second << endl; 
-                cout <<"#trails :   "<<trails<<endl;
-                cout <<"covered :   "<<coveredBy<< endl<<endl;     
-        }
-
-        private:    
-        // source   =   edge.first 
-        // destiny  =   edge.second 
-        pair <int, int> edge;      
-        // indicates how many trails covers this arc
-        int trails; 
-        // indicates what trail covers this arc
-        int coveredBy; 
-
-        friend class trail; 
+    public:
+        Vertex(int vertex_number);
+        Vertex();
+        int getNumber();
 };
 
+class Arc {
+    private:
+        Vertex arc_first_vertex;
+        Vertex arc_last_vertex;      
+        int number_of_trails; 
+        int cover_trail;
 
-class trail{ 
     public: 
-        trail create(vector <arc> &list){
-            trail aux; 
-            aux.numberOfTrails=0;
-            for(int i=0; i<list.size(); i++){list.at(i).addTrail();aux.numberOfTrails+= list.at(i).trails;}
-            aux.head = 0; 
-            if(!list.empty()){aux.tail = list.size() - 1; } else{aux.tail = -1; }
-            aux.t = list;
-            return aux;
-        }
-        void print(){
-            for(int i=0; i<t.size(); i++){  
-                cout <<"trail   :   "<<i<<endl; t.at(i).print();}
-        } 
+        Arc(Vertex first_vertex, Vertex last_vertex);
+        void addTrail();
+        void print();
+        int getNumberOfTrails();
+};
+
+class Trail{ 
+    public: 
+        Trail(vector<Arc*> list);
+        void print();
+
     private: 
-        vector <arc> t; 
+        vector<Arc*> arcs; 
         int head; 
         int tail; 
-        int numberOfTrails; 
-
-        friend class set; 
+        int number_of_trails; 
 };
 
-
-
-class set{ 
+class Set{ 
     public: 
-        set create(vector <trail> &new_set){ 
-            set aux; 
-            aux.s = new_set;
-            return aux;
-        }
-        void print(){
-            for(int i=0; i<s.size(); i++){
-                cout << "set    :   "<<i<<endl; s.at(i).print(); 
-            }
-        }
+        Set(vector<Trail> new_set);
+        void print();
+
     private: 
-        vector <trail> s;  
+        vector<Trail> trails;  
 };

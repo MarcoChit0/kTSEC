@@ -1,91 +1,69 @@
-/*#include "data.hpp"
+#include "data.hpp"
 
-void arc::CreateArc(int s, int d){
-    edge.first  =   s; 
-    edge.second =   d; 
-    numberOfTrails = 0; 
-    coveredBy = 0;
-} 
+using namespace std; 
 
-void arc::ChangeCover( int c){
-    coveredBy = c;
+Vertex::Vertex(int Vertex_number) {
+    this->number = Vertex_number;
 }
 
-void arc::AddTrail(){
-    numberOfTrails = numberOfTrails + 1;
+Vertex::Vertex() {
+    this->number = -1;
 }
 
-int arc::InformNumberOfTrails(){
-    return numberOfTrails; 
-};
-
-void arc::PrintArc(arc* a){
-    std::cout << "---------------------"<<std::endl;
-    std::cout << "arc: "<<  std::endl; 
-    std::cout << "   ( "<< a->edge.first << " ,  " << a->edge.second << " )"<<std::endl; 
-    std::cout << "#trails: "<< a->numberOfTrails << std::endl;
-    std::cout << "covered by: "<< a->coveredBy << std::endl; 
-    std::cout << "---------------------"<<std::endl;
+int Vertex::getNumber() {
+    return this->number;
 }
 
-void trail::CreateTrail(std::vector <arc*> new_trail){
-    t = new_trail; 
-    head = 0; 
-    if(!new_trail.empty()){
-        tail = new_trail.size() - 1; 
-    } 
-    else tail = 0; 
-    numberOfTrails = 0; 
-    for( int i = 0; i< new_trail.size(); i++){
-        numberOfTrails = new_trail.at(i)->InformNumberOfTrails(); 
-        new_trail.at(i)->AddTrail();
+
+Arc::Arc(Vertex first_Vertex, Vertex last_Vertex) {
+    this->arc_first_vertex = first_Vertex;
+    this->arc_last_vertex = last_Vertex;
+    this->number_of_trails = 0;
+    this->cover_trail = 0;
+}
+
+void Arc::addTrail() {
+    this->number_of_trails = this->number_of_trails + 1;
+}
+
+void Arc::print() {
+    cout << "arc     :   " << this->arc_first_vertex.getNumber();
+    cout << "  ->  " << this->arc_last_vertex.getNumber()  << endl; 
+    cout << "#trails :   " << this->number_of_trails <<endl;
+    cout << "covered :   " << this->cover_trail << endl << endl;  
+}
+
+int Arc::getNumberOfTrails() {
+    return this->number_of_trails;
+}
+
+
+Trail::Trail(vector<Arc*> list) {
+    this->arcs = list;
+    this->number_of_trails = 0;
+    for (int i = 0; i < this->arcs.size(); i++) {
+        this->arcs.at(i)->addTrail();
+        this->number_of_trails += this->arcs.at(i)->getNumberOfTrails();
     }
-    size = new_trail.size(); 
+    this->head = 0;
+    this->tail = !this->arcs.empty() ? this->arcs.size()-1 : -1;
 }
 
-void trail::ChangeHead( int new_head){
-    head = new_head; 
-}
-
-void trail::ChangeTail( int new_tail){
-    tail = new_tail; 
-}
-
-void trail::PrintTrail(){
-    for(int i = 0; i< t.size(); i++){
-        std::cout << std::endl<< "i = "<<i << std::endl;
-        t.at(i)->PrintArc(t.at(i));
-    }
-    std::cout << std::endl << "size= "<< size<<std::endl;
-}
-
-int trail::return_size(){
-    return size;
-}
-
-int trail::Return_numberOfTrails(){
-    return numberOfTrails; 
-}
-
-void set::CreateSet(std::vector <trail> new_setOfTrails){
-    trails = new_setOfTrails; 
-    for(int i = 0; i < new_setOfTrails.size(); i++){
-        size.at(i) = trails.at(i).return_size(); 
-        numberOfTrails.at(i)= trails.at(i).Return_numberOfTrails(); 
+void Trail::print() {
+    for(int i = 0; i < this->arcs.size(); i++) {  
+        cout <<"trail   :   " << i << endl;
+        this->arcs.at(i)->print();
     }
 }
 
-void set::AddTrail(trail new_trail){
-    trails.push_back(new_trail); 
-    size.push_back(new_trail.return_size());
-    numberOfTrails.push_back(new_trail.Return_numberOfTrails()); 
+
+Set::Set(vector<Trail> new_set) {
+    this->trails = new_set;
 }
 
-void set::PrintSet(){
-    for(int i = 0; i< trails.size(); i++){
-        std::cout<<"-------------------------"<<std::endl<<std::endl;
-        std::cout << std::endl<< "TRAIL NUMBER: "<<i << std::endl;
-        trails.at(i).PrintTrail(); 
-        std::cout<<std::endl<<"-------------------------"<<std::endl;
+void Set::print() {
+    for(int i=0; i < this->trails.size(); i++){
+        cout << "set    :   " << i << endl;
+        this->trails.at(i).print(); 
     }
-}*/
+}
