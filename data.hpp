@@ -39,7 +39,10 @@ class Trail{
         int getTail(); 
         int getNumberOfTrails(); 
         int coveredBy(int index); 
-        void addTail(); 
+        void changeTail(int new_tail);
+        void changeHead(int new_head); 
+        vector <Arc*> getArcs(); 
+        void changeCover(int new_cover, int arc_index); 
 
     private: 
         vector<Arc*> arcs; 
@@ -57,9 +60,14 @@ class Set{
         int  getTrailSize(int index); 
         int  getTrailTail(int index); 
         int  getTrailHead(int index); 
+        vector <Arc*> getTrailArcs(int index); 
+        Trail getTrail(int index); 
         int  coveredBy(int index_trail, int index_arc); 
-        void addTail(int index); 
-
+        void changeTrailTail(int trail_index, int new_tail); 
+        void deleteTrail(int index); 
+        void addTrail(Trail t); 
+        void changeCover(int new_cover, int arc_index, int trail_index); 
+        void changeTrailHead(int trail_index, int new_head); 
     private: 
         vector<Trail> trails;  
 };
@@ -74,3 +82,8 @@ class Graph{
 }; 
 
 Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity);
+
+// if a is subtrail of b 
+//      then return true 
+//      else return false
+bool isSubtrail(vector <Arc*> a, vector <Arc*> b);
