@@ -102,6 +102,18 @@ void Trail::changeHead(int new_head){
     this->head = new_head; 
 }
 
+vector <Trail> Trail::split(int capacity){ 
+    int current =0, previous = 0; 
+    vector <Arc*> aux_arcs;  
+    vector <Trail> list_of_trails; 
+    for(int i=0; i<this->arcs.size(); i += capacity){
+        copy(this->arcs.at(i), this->arcs.at(i + capacity), aux_arcs.begin()); 
+        Trail new_trail(aux_arcs); 
+        list_of_trails.push_back(new_trail);
+    }
+    return list_of_trails; 
+}
+
 Set::Set(vector<Trail> new_set) {
     this->trails = new_set;
 }
@@ -170,9 +182,21 @@ void Set::changeTrailHead(int new_head, int trail_index){
     this->trails.at(trail_index).changeHead(new_head); 
 }
 
+vector <Trail> Set::split(int capacity){ 
+    vector <Trail> new_set_of_trails; 
+    vector <Trail> aux; 
+    for(int i=0; i < this->trails.size(); i++){
+        aux = this->trails.at(i).split(capacity); 
+        for(int j=0; j < aux.size(); j++ ){
+            new_set_of_trails.push_back(aux.at(j));
+        }
+    }
+    return new_set_of_trails; 
+}
+
 Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity){
     // S <- empty 
-    Set sol({}), unassigned_flows = trails, R({}); 
+    Set sol({}), unassigned_flows = trails; 
     // c <- 0
     int cover_index = 0; 
     // CoveredBy(a) <- null, for each a in A
@@ -245,6 +269,9 @@ Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity){
     }
     // R <- empty 
     // for each sub-trail s in S do... 
+        // for a <- 0, k, 2k, ... do...
+        // R<- R u s(a:min(a+k,|s|))
+    Set R(sol.split(capacity)); 
     return R; 
 }
 

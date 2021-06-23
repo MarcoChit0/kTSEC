@@ -43,6 +43,7 @@ class Trail{
         void changeHead(int new_head); 
         vector <Arc*> getArcs(); 
         void changeCover(int new_cover, int arc_index); 
+        vector <Trail> split(int capacity); 
 
     private: 
         vector<Arc*> arcs; 
@@ -68,6 +69,7 @@ class Set{
         void addTrail(Trail t); 
         void changeCover(int new_cover, int arc_index, int trail_index); 
         void changeTrailHead(int trail_index, int new_head); 
+        vector <Trail> split(int capacity);
     private: 
         vector<Trail> trails;  
 };
