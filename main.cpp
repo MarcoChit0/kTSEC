@@ -1,35 +1,29 @@
 #include "data.hpp"
 
 int main(){
-    Arc a = Arc(Vertex(2), Vertex(3)); 
-    Arc b = Arc(Vertex(2), Vertex(3)); 
-    Arc c = Arc(Vertex(3), Vertex(4)); 
-    
-    vector <Arc*> v1 = {&a, &b, &c}; 
-    Trail t1 = Trail(v1);
-    t1.print();
-    a.print();
+    Arc a = Arc(Vertex(11), Vertex(1)); 
+    Arc b = Arc(Vertex(1), Vertex(3)); 
+    Arc c = Arc(Vertex(3), Vertex(2)); 
+    Arc d = Arc(Vertex(2), Vertex(3)); 
+    Arc e = Arc(Vertex(2), Vertex(12)); 
+    Arc f = Arc(Vertex(12), Vertex(2)); 
+    Arc g = Arc(Vertex(3), Vertex(5)); 
+    Arc h = Arc(Vertex(5), Vertex(14)); 
+    Arc i = Arc(Vertex(4), Vertex(3)); 
+    Arc j = Arc(Vertex(3), Vertex(4)); 
+    Arc k = Arc(Vertex(13), Vertex(4)); 
+    Arc l = Arc(Vertex(4), Vertex(13));
 
-    Arc d = Arc(Vertex(1), Vertex(4)); 
-    Arc e = Arc(Vertex(4), Vertex(2)); 
-    Arc f = Arc(Vertex(2), Vertex(1)); 
-    
-    vector <Arc*> v2 = {&d, &e, &f}; 
-    Trail t2 = Trail(v2);
-    t2.print();
+    vector <Arc*> v1 = {&a, &b, &c, &e}; 
+    vector <Arc*> v2 = {&a, &b, &j, &l}; 
+    vector <Arc*> v3 = {&f, &d, &j, &l}; 
+    vector <Arc*> v4 = {&k, &i, &g, &h}; 
 
-    Arc g = Arc(Vertex(4), Vertex(3)); 
-    Arc h = Arc(Vertex(3), Vertex(1)); 
-    
-    vector <Arc*> v3 = {&g, &h}; 
-    Trail t3 = Trail(v3);
-    t3.print();
+    Trail f1(v1), f2(v2), f3(v3), f4(v4); 
+    vector <Trail> fs1 = {f1, f2, f3, f4}; 
+    Set s1(fs1);
 
-    vector <Arc*> v4 = {&f, &d, &g, &h}; 
-    Trail t4 = Trail(v4);
-    t4.print();
-
-    vector<Trail> vs1 = {t1, t2, t3, t4};
-    Set s1 = Set(vs1);
-    s1.print();
+    vector <Arc*> all_arcs = {&a, &b, &c, &d, &e, &f, &g, &h, &i, &j, &k, &l};
+    Set r = algorithm_for_NEMO(all_arcs, s1, 4);
+    r.print(); 
 }
