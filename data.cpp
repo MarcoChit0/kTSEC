@@ -2,9 +2,6 @@
 
 using namespace std; 
 
-#define NO_COVER -1
-#define EMPTY_TRAIL 0 
-
 Vertex::Vertex(int Vertex_number) {
     this->number = Vertex_number;
 }
@@ -47,6 +44,7 @@ int Arc::coveredBy(){
 void Arc::changeCover(int new_cover){
     this->cover_trail = new_cover; 
 }
+
 
 Trail::Trail(vector<Arc*> list) {
     this->arcs = list;
@@ -234,6 +232,7 @@ Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity){
     unassigned_flows.sort(); 
     // for each f in UF do... 
     for(int flow=0; flow< unassigned_flows.size(); flow++){
+        cout << flow << endl;
         // h <- 0
         // t <- 0 
             // head and tail for each tail in unassigned_flows are already equal to EMPTY_TRAIL = 0

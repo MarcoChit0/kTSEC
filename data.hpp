@@ -4,6 +4,9 @@
 
 using namespace std; 
 
+#define NO_COVER -1
+#define EMPTY_TRAIL 0 
+
 class Vertex {
     private:
         int number;
