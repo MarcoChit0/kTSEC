@@ -48,11 +48,10 @@ void Arc::changeCover(int new_cover){
 
 Trail::Trail(vector<Arc*> list) {
     this->arcs = list;
-    this->number_of_trails = 0;
-    for (int i = 0; i < this->arcs.size(); i++) {
-        this->arcs.at(i)->addTrail();
-        this->number_of_trails += this->arcs.at(i)->getNumberOfTrails();
+    for(int i=0; i<list.size();i++){
+        list.at(i)->addTrail(); 
     }
+    this->number_of_trails = EMPTY_TRAIL; 
     this->head = EMPTY_TRAIL;
     this->tail = EMPTY_TRAIL;
 }
@@ -99,6 +98,26 @@ void Trail::changeCover(int new_cover, int arc_index){
 
 void Trail::changeHead(int new_head){ 
     this->head = new_head; 
+}
+
+int Trail::subtrailSize(){
+    if( this->tail != EMPTY_TRAIL && this->tail > this->head){
+        return this->tail - this->head;
+    }
+    else return EMPTY_TRAIL; 
+}
+
+void Trail::numberOfTrailsCorrection(){
+    this->number_of_trails = 0;
+    for(int i=0; i<this->arcs.size(); i++){
+        this->number_of_trails += this->arcs.at(i)->getNumberOfTrails(); 
+    }
+}
+
+void Set::numberOfTrailsCorrection(){
+    for(int i=0; i<this->trails.size(); i++){
+        this->trails.at(i).numberOfTrailsCorrection();
+    }
 }
 
 vector <Trail> Trail::split(int capacity){ 
@@ -163,6 +182,8 @@ void Set::changeTrailTail(int index, int n){
 void Set::sort(){
     int i, j;
 
+    this->numberOfTrailsCorrection();
+
     for (i = 1; i < this->trails.size(); i++)
     {
         Trail key = this->trails.at(i); 
@@ -173,7 +194,14 @@ void Set::sort(){
             this->trails.at(j+1) = this->trails.at(j);
             j = j - 1;
         }
-        this->trails.at(j+1) = key;
+
+        if( j>=0 && this->trails.at(j).size() == key.size()){
+            if(this->trails.at(j).getNumberOfTrails() < key.getNumberOfTrails()){
+                this->trails.at(j+1) = this->trails.at(j);
+                this->trails.at(j) = key;
+            }
+        }
+        else this->trails.at(j+1) = key;
         
     }
 }
@@ -183,7 +211,7 @@ void Set::addTrail(Trail t){
     vector <Arc*> arcs; 
     arcs = t.getArcs(); 
     // a0 a1 a2 ... ah-1 ah ah+1 ... at-1 at
-    if(t.getTail() < arcs.size()) arcs.erase(arcs.begin() + t.getTail() +1, arcs.begin() + arcs.size());
+    if(t.getTail() < arcs.size()) arcs.erase(arcs.begin() + t.getTail() , arcs.begin() + arcs.size());
     // ah ah+1 ... at-1 at
     if(t.getHead() > 0) arcs.erase(arcs.begin(), arcs.begin() + t.getHead()); 
     
@@ -219,49 +247,60 @@ vector <Trail> Set::split(int capacity){
     return new_set_of_trails; 
 }
 
+int  Set::subtrailSize(int trail_index){
+    return this->trails.at(trail_index).subtrailSize();
+}
+
 Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity){
     // S <- empty 
     Set sol({}), unassigned_flows = trails; 
     // c <- 0
     int cover_index = 0; 
     // CoveredBy(a) <- null, for each a in A
-        // all arcs start with 0 as value for coveredBy field
+    for(int i=0; i<unassigned_flows.size(); i++){
+        for(int j=0; j<unassigned_flows.getTrailSize(i); j++){
+            unassigned_flows.changeCover(NO_COVER, j, i); 
+        }
+    }
     // UF <- sort
         // sorted in ascending order by the length of each trail and,
         // in case of ties, in descending order by the sum of the number of trails covering ther arcs of each trail
     unassigned_flows.sort(); 
+    unassigned_flows.print();
+    system("pause");
     // for each f in UF do... 
-    for(int flow=0; flow< unassigned_flows.size(); flow++){
-        cout << flow << endl;
+    for(int flow=0; flow< unassigned_flows.size(); flow++){ cout << "flow : " << flow << endl; // debug
         // h <- 0
+        unassigned_flows.changeTrailHead(flow, 0);
         // t <- 0 
+        unassigned_flows.changeTrailTail(flow, 0);
             // head and tail for each tail in unassigned_flows are already equal to EMPTY_TRAIL = 0
         // while t < |f| do... 
-        while(unassigned_flows.getTrailTail(flow) < unassigned_flows.getTrailSize(flow)){
+        while(unassigned_flows.getTrailTail(flow) < unassigned_flows.getTrailSize(flow)){ cout << "1" <<endl; // debug
             // g <- coveredBy(f(t))
             int aux = unassigned_flows.coveredBy(flow, unassigned_flows.getTrailTail(flow));
             // if g = null, then...
-            if (aux == NO_COVER){
+            if (aux == NO_COVER){cout << "2" <<endl; // debug
                 // t <- t + 1
                 unassigned_flows.changeTrailTail(flow, (unassigned_flows.getTrailTail(flow) + 1));
             }
             // else...
-            else{
+            else{cout << "3" <<endl; // debug
                 // if subtrail(S(g),f), then... 
-                if(isSubtrail(sol.getTrailArcs(aux), unassigned_flows.getTrailArcs(flow))){
+                if(isSubtrail(sol.getTrailArcs(aux), unassigned_flows.getTrailArcs(flow))){cout << "4" <<endl; // debug
                     // t <- t + |S(g)|
                     unassigned_flows.changeTrailTail(flow, (sol.getTrailArcs(aux).size() + unassigned_flows.getTrailTail(flow) -1)); 
-                    // S(g) <- null 
+                    // S(g) <- null
                     sol.deleteTrail(aux); 
                 }
                 // else...
-                else{
+                else{cout << "5" <<endl; // debug
                     // if |f(h:t)| > 0, then... 
-                    if(unassigned_flows.getTrailTail(flow)>0 && unassigned_flows.getTrailHead(flow)>=0 && (unassigned_flows.getTrailTail(flow) - unassigned_flows.getTrailHead(flow))>0 ){
+                    if(unassigned_flows.subtrailSize(flow)){ cout << "6" <<endl; // debug
                         // S <- S u f(h:t) 
                         sol.addTrail(unassigned_flows.getTrail(flow)); 
                         // for each a in f(h:t) do... 
-                        for(int i=0; i < (unassigned_flows.getTrailTail(flow) - unassigned_flows.getTrailHead(flow ) + 1); i++) {
+                        for(int i= unassigned_flows.getTrailHead(flow); i < unassigned_flows.getTrailTail(flow); i++) {cout << "7" <<endl; // debug
                             // CoveredBy(a) <- c
                             sol.changeCover(cover_index, i, flow); 
                         }
@@ -271,9 +310,9 @@ Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity){
                         unassigned_flows.changeTrailHead(flow, unassigned_flows.getTrailTail(flow)); 
                     }
                     // else... 
-                    else{
+                    else{ cout << "8" <<endl; // debug 
                         // h <- h + 1
-                        unassigned_flows.changeTrailHead(flow, unassigned_flows.getTrailHead(flow) + 1); 
+                        unassigned_flows.changeTrailHead(flow, unassigned_flows.getTrailHead(flow) + 1);
                         // t <- h
                         unassigned_flows.changeTrailTail(flow, unassigned_flows.getTrailHead(flow)); 
                     }
@@ -282,13 +321,17 @@ Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity){
         }
 
         // if |f(h:t)| > 0, then... 
-        if(unassigned_flows.getTrailTail(flow)>0 && unassigned_flows.getTrailHead(flow)>=0){
+        if(unassigned_flows.subtrailSize(flow)){cout << "9" <<endl; // debug
             // S <- S u f(h:t) 
             sol.addTrail(unassigned_flows.getTrail(flow));
+            sol.print();
+            system("pause");
             // for each a in f(h:t) do... 
-            for(int i=0; i < (unassigned_flows.getTrailTail(flow) - unassigned_flows.getTrailHead(flow ) ); i++) {
+            for(int i=0; i < (unassigned_flows.getTrailTail(flow) - unassigned_flows.getTrailHead(flow ) ); i++) {cout << "10" <<endl; // debug
                 sol.changeCover(cover_index, i, flow); 
             }
+            sol.print();
+            system("pause");
             // c <- c + 1
             cover_index = cover_index + 1; 
         }
@@ -297,8 +340,8 @@ Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity){
     // for each sub-trail s in S do... 
         // for a <- 0, k, 2k, ... do...
         // R<- R u s(a:min(a+k,|s|))
-    //Set R(sol.split(capacity)); 
-    return sol; 
+    Set R(sol.split(capacity)); 
+    return R; 
 }
 
 

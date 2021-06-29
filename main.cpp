@@ -24,6 +24,6 @@ int main(){
     Set s1(fs1);
 
     vector <Arc*> all_arcs = {&a, &b, &c, &d, &e, &f, &g, &h, &i, &j, &k, &l};
-    Set r = algorithm_for_NEMO(all_arcs, s1, 4);
-    r.print(); 
+    Set r = algorithm_for_NEMO(all_arcs, s1, 3);
+    r.print();
 }
