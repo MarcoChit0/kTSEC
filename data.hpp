@@ -1,3 +1,8 @@
+#ifndef DATA_HPP
+#define DATA_HPP
+
+#include "Vertex.hpp"
+
 #include <iostream>
 #include <vector> 
 #include <utility>
@@ -7,15 +12,6 @@ using namespace std;
 #define NO_COVER -1
 #define EMPTY_TRAIL 0 
 
-class Vertex {
-    private:
-        int number;
-
-    public:
-        Vertex(int vertex_number);
-        Vertex();
-        int getNumber();
-};
 
 class Arc {
     private:
@@ -95,3 +91,5 @@ Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity);
 //      then return true 
 //      else return false
 bool isSubtrail(vector <Arc*> a, vector <Arc*> b);
+
+#endif

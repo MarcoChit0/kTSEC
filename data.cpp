@@ -2,19 +2,6 @@
 
 using namespace std; 
 
-Vertex::Vertex(int Vertex_number) {
-    this->number = Vertex_number;
-}
-
-Vertex::Vertex() {
-    this->number = -1;
-}
-
-int Vertex::getNumber() {
-    return this->number;
-}
-
-
 Arc::Arc(Vertex first_Vertex, Vertex last_Vertex) {
     this->arc_first_vertex = first_Vertex;
     this->arc_last_vertex = last_Vertex;
