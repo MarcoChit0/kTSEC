@@ -2,55 +2,14 @@
 #define DATA_HPP
 
 #include "Vertex.hpp"
+#include "Arc.hpp"
+#include "Trail.hpp"
 
 #include <iostream>
 #include <vector> 
 #include <utility>
 
-using namespace std; 
-
-#define NO_COVER -1
-#define EMPTY_TRAIL 0 
-
-
-class Arc {
-    private:
-        Vertex arc_first_vertex;
-        Vertex arc_last_vertex;      
-        int number_of_trails; 
-        int cover_trail;
-
-    public: 
-        Arc(Vertex first_vertex, Vertex last_vertex);
-        void addTrail();
-        void print();
-        int getNumberOfTrails();
-        int coveredBy(); 
-        void changeCover(int new_cover); 
-};
-
-class Trail{ 
-    public: 
-        Trail(vector<Arc*> list);
-        void print();
-        int size(); 
-        int getHead();
-        int getTail(); 
-        int getNumberOfTrails(); 
-        int coveredBy(int index); 
-        void changeTail(int new_tail);
-        void changeHead(int new_head); 
-        vector <Arc*> getArcs(); 
-        void changeCover(int new_cover, int arc_index); 
-        vector <Trail> split(int capacity); 
-        int subtrailSize(); 
-        void numberOfTrailsCorrection(); 
-    private: 
-        vector<Arc*> arcs; 
-        int head; 
-        int tail; 
-        int number_of_trails; 
-};
+using namespace std;  
 
 class Set{ 
     public: 
