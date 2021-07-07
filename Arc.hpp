@@ -14,12 +14,38 @@ class Arc {
         int number_of_trails; 
         int cover_trail;
 
-    public: 
+    public:
+        /*
+            name        :   Arc
+            input       :   Vertex, Vertex 
+            function    :   creates an Arc obj
+        */ 
         Arc(Vertex first_vertex, Vertex last_vertex);
+        /*
+            name        :   addTrail
+            function    :   add +1 to number_of_trails field 
+        */ 
         void addTrail();
+        /*
+            name        :   print
+            function    :   print on terminal this Arc 
+        */
         void print();
+        /*
+            name        :   getNumberOfTrails
+            output      :   number_of_trails
+        */
         int getNumberOfTrails();
+        /*
+            name        :   coveredBy
+            output      :   cover_trail
+        */
         int coveredBy(); 
+        /*
+            name        :   changeCover
+            input       :   int 
+            function    :   this Arc is covered now by int new cover 
+        */
         void changeCover(int new_cover); 
 };
 
