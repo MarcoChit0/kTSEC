@@ -18,7 +18,7 @@ class Trail{
         /*
             name        :   Trail
             input       :   list of Arcs
-            function    :   create Trail object from that list of Arcs 
+            function    :   create Trail object 
         */
         Trail(vector<Arc*> list);
         /*
@@ -99,6 +99,8 @@ class Trail{
             function    :   update number of trails field
         */        
         void numberOfTrailsCorrection(); 
+
+        Arc* getArc(int index); 
 
 };
 

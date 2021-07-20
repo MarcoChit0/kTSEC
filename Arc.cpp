@@ -29,3 +29,27 @@ int Arc::coveredBy(){
 void Arc::changeCover(int new_cover){
     this->cover_trail = new_cover; 
 }
+
+int Arc::getSnd(){
+    return this->arc_last_vertex.getNumber(); 
+}
+
+int Arc::getFst(){
+    return this->arc_first_vertex.getNumber();
+}
+
+
+Vertex Arc::getFstVertex(){
+    return this->arc_first_vertex; 
+}
+
+Vertex Arc::getSndVertex(){
+    return this->arc_last_vertex; 
+}
+
+        void Arc::changeFstVertex(Vertex new_fst_vertex){
+            this->arc_first_vertex = new_fst_vertex;
+        }
+        void Arc::changeSndVertex(Vertex new_snd_vertex){
+            this->arc_last_vertex = new_snd_vertex;
+        }

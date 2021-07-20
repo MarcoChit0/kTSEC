@@ -47,6 +47,16 @@ class Arc {
             function    :   this Arc is covered now by int new cover 
         */
         void changeCover(int new_cover); 
+
+        int getFst(); 
+
+        int getSnd(); 
+
+        Vertex getFstVertex(); 
+        Vertex getSndVertex(); 
+
+        void changeFstVertex(Vertex new_fst_vertex);
+        void changeSndVertex(Vertex new_snd_vertex);
 };
 
 #endif

@@ -82,3 +82,7 @@ vector <Trail> Trail::split(int capacity){
     }
     return list_of_trails; 
 }
+
+Arc* Trail::getArc(int index){
+    return this->arcs.at(index); 
+}

@@ -5,6 +5,8 @@
 #include "Arc.hpp"
 #include "Trail.hpp"
 #include "Set.hpp"
+#include "Graph.hpp"
+#include "File.hpp"
 
 #include <iostream>
 #include <vector> 
@@ -12,16 +14,7 @@
 
 using namespace std;  
 
-class Graph{ 
-    public:
-        Graph(vector <Arc*> arcs, vector <Vertex*> vertex);
-        void print(); 
-    private: 
-        vector <vector<Arc*>> arcs; 
-        vector <Vertex*> vertex; 
-}; 
-
-Set algorithm_for_NEMO(vector <Arc *> arcs, Set trails, int capacity);
+Set algorithm_for_NEMO( Set trails, int capacity);
 
 // if a is subtrail of b 
 //      then return true 
