@@ -5,7 +5,6 @@
 #include "Arc.hpp"
 #include "Trail.hpp"
 #include "Set.hpp"
-#include "Graph.hpp"
 #include "File.hpp"
 
 #include <iostream>

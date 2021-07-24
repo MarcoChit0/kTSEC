@@ -2,7 +2,7 @@
 
 using namespace std; 
 
-Set algorithm_for_NEMO(Set trails, int capacity){
+Set algorithm_for_NEMO( Set trails, int capacity){
     // S <- empty 
     Set sol({}), unassigned_flows = trails; 
     // c <- 0
