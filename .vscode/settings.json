@@ -52,6 +52,7 @@
         "iomanip": "cpp",
         "mutex": "cpp",
         "thread": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "xstring": "cpp"
     }
 }

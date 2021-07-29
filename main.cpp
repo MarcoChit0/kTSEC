@@ -27,16 +27,9 @@ int main(){
     vector <Arc*> all_arcs = {&a, &b, &c, &d, &e, &f, &g, &h, &i, &j, &k, &l};
     Set r = algorithm_for_NEMO( s1, 4);
     r.print();*/
-    vector<Arc> arcs = read_arc_file("input_arcs.txt");
-    vector<Arc*> list;
-    make_list_of_pointers(arcs, &list);
+    vector<Arc*> arcs = read_arc_file("input_arcs.txt");
     cout<< "list:       "<<endl<<endl;
-    for(int i=0; i<list.size();i++){
-        list.at(i)->print();
-    }
-
-    vector<Trail> list_of_trails = read_trail_file("input.txt",list); 
-    for(int i =0; i<list_of_trails.size(); i++){
-        list_of_trails.at(i).print();
+    for(int i=0; i<arcs.size();i++){
+        arcs.at(i)->print();
     }
 }

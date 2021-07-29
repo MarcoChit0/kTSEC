@@ -1,16 +1,16 @@
 #include "File.hpp"
-vector <Arc> read_arc_file(string file_name){
+vector <Arc*> read_arc_file(string file_name){
     ifstream my_file(file_name);
     if(my_file.is_open()){
         string line; 
         vector <string> tokens; 
-        vector <Arc> list_of_arcs; 
+        vector <Arc*> list_of_arcs; 
         while(getline(my_file,line) && line.length()>0){
                 tokens = tokenize(line); 
                 if(isNumber(tokens.at(SRC_POS)) && isNumber(tokens.at(DST_POS))){
                     Vertex src(stoi(tokens.at(SRC_POS))); 
                     Vertex dst(stoi(tokens.at(DST_POS))); 
-                    Arc new_arc(src, dst); 
+                    Arc* new_arc = new Arc(src,dst); 
                     list_of_arcs.push_back(new_arc); 
             }
         }
@@ -28,14 +28,6 @@ bool isNumber(const string& str)
         if (std::isdigit(c) == 0) return false;
     }
     return true;
-}
-
-void make_list_of_pointers(vector <Arc> list_of_arcs, vector <Arc*> *list){
-    vector <Arc*> list_of_pointers; 
-    for(int i=0; i<list_of_arcs.size(); i++){
-        list_of_pointers.push_back(&list_of_arcs.at(i));
-    }
-    *list = list_of_pointers;
 }
 
 vector<string> tokenize(string line) {

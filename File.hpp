@@ -11,9 +11,8 @@
 #define SRC_POS 0
 #define DST_POS 1
 
-vector <Arc> read_arc_file(string file_name); 
+vector <Arc*> read_arc_file(string file_name); 
 bool isNumber(const string& str);
-void make_list_of_pointers(vector <Arc> list_of_arcs, vector <Arc*> *list); 
 vector <Trail> read_trail_file(string file_name, vector <Arc*>list_of_pointers);
 vector<string> tokenize(string line);
 #endif
