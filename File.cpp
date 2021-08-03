@@ -53,6 +53,7 @@ vector <Trail> read_trail_file(string file_name, vector <Arc*>list_of_pointers){
         vector <Arc> list_of_arcs; 
         vector <Arc*> aux; 
         vector <Trail> list_of_trails; 
+        Trail new_trail({});
         while(getline(my_file,line)){
                 if(line.length()>0){
                     tokens = tokenize(line);
@@ -75,12 +76,18 @@ vector <Trail> read_trail_file(string file_name, vector <Arc*>list_of_pointers){
                             }
                         }
                     }
-                    Trail new_trail(aux); 
+                    new_trail = Trail(aux); 
                     list_of_trails.push_back(new_trail); 
                     aux.erase(aux.begin(), aux.begin() + aux.size()); 
                     list_of_arcs.erase(list_of_arcs.begin(), list_of_arcs.begin() +list_of_arcs.size()); 
                 }
         }
+        if(!list_of_trails.empty()){
+            list_of_trails.push_back(new_trail); 
+            aux.erase(aux.begin(), aux.begin() + aux.size()); 
+            list_of_arcs.erase(list_of_arcs.begin(), list_of_arcs.begin() +list_of_arcs.size());             
+        }
+
         return list_of_trails; 
     }
     else{

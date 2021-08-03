@@ -1,7 +1,7 @@
 #include "data.hpp"
 
 int main(){
-    /*
+    
     Arc a = Arc(Vertex(11), Vertex(1)); 
     Arc b = Arc(Vertex(1), Vertex(3)); 
     Arc c = Arc(Vertex(3), Vertex(2)); 
@@ -23,13 +23,25 @@ int main(){
     Trail f1(v1), f2(v2), f3(v3), f4(v4); 
     vector <Trail> fs1 = {f1, f2, f3, f4}; 
     Set s1(fs1);
-
+    cout<<"my first set:"<<endl<<endl;
+    s1.print();
+    cout<<"my set alfter using alg for nemo:"<<endl<<endl;
     vector <Arc*> all_arcs = {&a, &b, &c, &d, &e, &f, &g, &h, &i, &j, &k, &l};
-    Set r = algorithm_for_NEMO( s1, 4);
-    r.print();*/
+    Set r1 = algorithm_for_NEMO( s1, 4);
+    r1.print();
+    
+
     vector<Arc*> arcs = read_arc_file("input_arcs.txt");
-    cout<< "list:       "<<endl<<endl;
+    cout<< "arcs:       "<<endl<<endl;
     for(int i=0; i<arcs.size();i++){
         arcs.at(i)->print();
     }
+    cout<<endl<<endl<< "trails:      "<<endl<<endl;
+    vector<Trail> trails = read_trail_file("input_trail.txt", arcs);
+    for(int i=0; i<trails.size();i++){
+        trails.at(i).print();
+    }
+    Set my_set(trails);
+    my_set.print();
+    Set r2 = algorithm_for_NEMO(my_set, 4);
 }
