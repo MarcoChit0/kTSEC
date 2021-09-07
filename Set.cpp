@@ -1,116 +1,116 @@
 #include "Set.hpp"
 
-void Set::numberOfTrailsCorrection(){
-    for(int i=0; i<this->trails.size(); i++){
-        this->trails.at(i).numberOfTrailsCorrection();
+void Set::NumberOfTrailsCorrection(){
+    for(int i=0; i<this->Trails.size(); i++){
+        this->Trails.at(i).NumberOfTrailsCorrection();
     }
 }
 
 Set::Set(vector<Trail> new_set) {
-    this->trails = new_set;
+    this->Trails = new_set;
 }
 
-void Set::print() {
-    for(int i=0; i < this->trails.size(); i++){
+void Set::Print() {
+    for(int i=0; i < this->Trails.size(); i++){
         cout << "----------------------------"<<endl;
         cout << "set    :   " << i << endl;
         cout << "----------------------------"<<endl;
-        cout << "#trails:   "<<this->trails.at(i).getNumberOfTrails()<<endl<<endl;
-        this->trails.at(i).print(); 
+        cout << "#trails:   "<<this->Trails.at(i).GetNumberOfTrails()<<endl<<endl;
+        this->Trails.at(i).Print(); 
         cout << endl; 
         cout << "----------------------------"<<endl;
     }
 }
 
-int Set::size(){
-    return this->trails.size();
+int Set::Size(){
+    return this->Trails.size();
 }
 
-int Set::getTrailSize(int index){
-    return this->trails.at(index).size(); 
+int Set::GetTrailSize(int index){
+    return this->Trails.at(index).Size(); 
 }
 
-int Set::getTrailHead(int index){
-    return this->trails.at(index).getHead(); 
+int Set::GetTrailHead(int index){
+    return this->Trails.at(index).GetHead(); 
 }
 
-int Set::getTrailTail(int index){
-    return this->trails.at(index).getTail(); 
+int Set::GetTrailTail(int index){
+    return this->Trails.at(index).GetTail(); 
 }
 
-vector <Arc*> Set::getTrailArcs(int index){
-    return this->trails.at(index).getArcs();
+vector <Arc*> Set::GetTrailArcs(int index){
+    return this->Trails.at(index).GetArcs();
 }
 
-int Set::coveredBy(int index_trail, int index_arc){ 
-    return this->trails.at(index_trail).coveredBy(index_arc); 
+int Set::CoveredBy(int index_trail, int index_arc){ 
+    return this->Trails.at(index_trail).CoveredBy(index_arc); 
 }
 
-void Set::changeTrailTail(int index, int n){ 
-    this->trails.at(index).changeTail(n); 
+void Set::SetTrailTail(int index, int n){ 
+    this->Trails.at(index).SetTail(n); 
 }
 
-void Set::sort(){
+void Set::Sort(){
     int i, j;
 
-    this->numberOfTrailsCorrection();
+    this->NumberOfTrailsCorrection();
 
-    for (i = 1; i < this->trails.size(); i++)
+    for (i = 1; i < this->Trails.size(); i++)
     {
-        Trail key = this->trails.at(i); 
+        Trail key = this->Trails.at(i); 
         j = i - 1;
 
-        while (j >= 0 && this->trails.at(j).size() > key.size())
+        while (j >= 0 && this->Trails.at(j).Size() > key.Size())
         {
-            this->trails.at(j+1) = this->trails.at(j);
+            this->Trails.at(j+1) = this->Trails.at(j);
             j = j - 1;
         }
 
-        if( j>=0 && this->trails.at(j).size() == key.size()){
-            if(this->trails.at(j).getNumberOfTrails() < key.getNumberOfTrails()){
-                this->trails.at(j+1) = this->trails.at(j);
-                this->trails.at(j) = key;
+        if( j>=0 && this->Trails.at(j).Size() == key.Size()){
+            if(this->Trails.at(j).GetNumberOfTrails() < key.GetNumberOfTrails()){
+                this->Trails.at(j+1) = this->Trails.at(j);
+                this->Trails.at(j) = key;
             }
         }
-        else this->trails.at(j+1) = key;
+        else this->Trails.at(j+1) = key;
         
     }
 }
 
-void Set::addTrail(Trail t){
+void Set::AddTrail(Trail t){
     // a0 a1 a2 ... ah-1 ah ah+1 ... at-1 at at+1... an-1
     vector <Arc*> arcs; 
-    arcs = t.getArcs(); 
+    arcs = t.GetArcs(); 
     // a0 a1 a2 ... ah-1 ah ah+1 ... at-1 at
-    if(t.getTail() < arcs.size()) arcs.erase(arcs.begin() + t.getTail() , arcs.begin() + arcs.size());
+    if(t.GetTail() < arcs.size()) arcs.erase(arcs.begin() + t.GetTail() , arcs.begin() + arcs.size());
     // ah ah+1 ... at-1 at
-    if(t.getHead() > 0) arcs.erase(arcs.begin(), arcs.begin() + t.getHead()); 
+    if(t.GetHead() > 0) arcs.erase(arcs.begin(), arcs.begin() + t.GetHead()); 
     
     Trail aux(arcs); 
-    this->trails.push_back(aux); 
+    this->Trails.push_back(aux); 
 }
 
-Trail Set::getTrail(int index){
-    return this->trails.at(index);
+Trail Set::GetTrail(int index){
+    return this->Trails.at(index);
 }
 
-void Set::deleteTrail(int index){
-    this->trails.erase(trails.begin() + index); 
+void Set::DeleteTrail(int index){
+    this->Trails.erase(Trails.begin() + index); 
 }
 
-void Set::changeCover(int new_cover, int arc_index, int trail_index){
-    this->trails.at(trail_index).changeCover(new_cover, arc_index); 
+void Set::SetCover(int new_cover, int arc_index, int trail_index){
+    this->Trails.at(trail_index).SetCover(new_cover, arc_index); 
 }
 
-void Set::changeTrailHead( int trail_index, int new_head){
-    this->trails.at(trail_index).changeHead(new_head); 
+void Set::SetTrailHead( int trail_index, int new_head){
+    this->Trails.at(trail_index).SetHead(new_head); 
 }
 
-vector <Trail> Set::split(int capacity){ 
+vector <Trail> Set::Split(int capacity){ 
     vector <Trail> new_set_of_trails; 
     vector <Trail> aux; 
-    for(int i=0; i < this->trails.size(); i++){
-        aux = this->trails.at(i).split(capacity); 
+    for(int i=0; i < this->Trails.size(); i++){
+        aux = this->Trails.at(i).Split(capacity); 
         for(int j=0; j < aux.size(); j++ ){
             new_set_of_trails.push_back(aux.at(j));
         }
@@ -118,6 +118,6 @@ vector <Trail> Set::split(int capacity){
     return new_set_of_trails; 
 }
 
-int  Set::subtrailSize(int trail_index){
-    return this->trails.at(trail_index).subtrailSize();
+int  Set::SubtrailSize(int trail_index){
+    return this->Trails.at(trail_index).SubtrailSize();
 }

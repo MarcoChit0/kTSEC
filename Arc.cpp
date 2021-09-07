@@ -1,55 +1,55 @@
 #include "Arc.hpp"
 
 Arc::Arc(Vertex first_Vertex, Vertex last_Vertex) {
-    this->arc_first_vertex = first_Vertex;
-    this->arc_last_vertex = last_Vertex;
-    this->number_of_trails = 0;
-    this->cover_trail = NO_COVER;
+    this->Source = first_Vertex;
+    this->Destiny = last_Vertex;
+    this->NumberOfTrails = 0;
+    this->CoverTrail = NO_COVER;
 }
 
-void Arc::addTrail() {
-    this->number_of_trails = this->number_of_trails + 1;
+void Arc::AddTrail() {
+    this->NumberOfTrails = this->NumberOfTrails + 1;
 }
 
-void Arc::print() {
-    cout << "arc     :   " << this->arc_first_vertex.getNumber();
-    cout << "  ->  " << this->arc_last_vertex.getNumber()  << endl; 
-    cout << "#trails :   " << this->number_of_trails <<endl;
-    cout << "covered :   " << this->cover_trail << endl << endl;  
+void Arc::Print() {
+    cout << "arc     :   " << this->Source.GetNumber();
+    cout << "  ->  " << this->Destiny.GetNumber()  << endl; 
+    cout << "#trails :   " << this->NumberOfTrails <<endl;
+    cout << "covered :   " << this->CoverTrail << endl << endl;  
 }
 
-int Arc::getNumberOfTrails() {
-    return this->number_of_trails;
+int Arc::GetNumberOfTrails() {
+    return this->NumberOfTrails;
 }
 
-int Arc::coveredBy(){
-    return this->cover_trail; 
+int Arc::CoveredBy(){
+    return this->CoverTrail; 
 }
 
-void Arc::changeCover(int new_cover){
-    this->cover_trail = new_cover; 
+void Arc::SetCover(int new_cover){
+    this->CoverTrail = new_cover; 
 }
 
-int Arc::getSnd(){
-    return this->arc_last_vertex.getNumber(); 
+int Arc::GetDestinyValue(){
+    return this->Destiny.GetNumber(); 
 }
 
-int Arc::getFst(){
-    return this->arc_first_vertex.getNumber();
+int Arc::GetSourceValue(){
+    return this->Source.GetNumber();
 }
 
 
-Vertex Arc::getFstVertex(){
-    return this->arc_first_vertex; 
+Vertex Arc::GetSource(){
+    return this->Source; 
 }
 
-Vertex Arc::getSndVertex(){
-    return this->arc_last_vertex; 
+Vertex Arc::GetDestiny(){
+    return this->Destiny; 
 }
 
-        void Arc::changeFstVertex(Vertex new_fst_vertex){
-            this->arc_first_vertex = new_fst_vertex;
+        void Arc::SetSource(Vertex new_fst_vertex){
+            this->Source = new_fst_vertex;
         }
-        void Arc::changeSndVertex(Vertex new_snd_vertex){
-            this->arc_last_vertex = new_snd_vertex;
+        void Arc::SetDestiny(Vertex new_snd_vertex){
+            this->Destiny = new_snd_vertex;
         }

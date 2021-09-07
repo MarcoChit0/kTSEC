@@ -5,14 +5,15 @@
 #include <vector>
 #include <iostream>
 
+// CONSTANTS:
 #define EMPTY_TRAIL 0
 
 class Trail{ 
         private: 
-        vector<Arc*> arcs; 
-        int head; 
-        int tail; 
-        int number_of_trails; 
+        vector<Arc*> Arcs; 
+        int Head; 
+        int Tail; 
+        int NumberOfTrails; 
         
         public: 
         /*
@@ -22,86 +23,90 @@ class Trail{
         */
         Trail(vector<Arc*> list);
         /*
-            name        :   print
+            name        :   Print
             function    :   print on terminal all arcs from this Trail 
         */        
-        void print();
+        void Print();
         /*
-            name        :   size
+            name        :   Size
             function    :   return Trail size
             output      :   size from list of Arcs 
         */        
-        int size(); 
+        int Size(); 
         /*
-            name        :   getHead
+            name        :   GetHead
             function    :   return Trail head pointer
             output      :   head 
         */        
-        int getHead();
+        int GetHead();
         /*
-            name        :   getTail
+            name        :   GetTail
             function    :   return Trail tail pointer
             output      :   tail 
         */        
-        int getTail(); 
+        int GetTail(); 
         /*
-            name        :   getNumberOfTrails
+            name        :   GetNumberOfTrails
             function    :   return the sum of all arcs number of trails from the list o Arcs 
             output      :   number of trails 
         */        
-        int getNumberOfTrails(); 
+        int GetNumberOfTrails(); 
         /*
-            name        :   coveredBy
+            name        :   CoveredBy
             input       :   index (int)
             function    :   return coveredBy field from Arc at index position 
             output      :   list of Arcs at index -> coveredBy  
         */        
-        int coveredBy(int index); 
+        int CoveredBy(int index); 
         /*
-            name        :   changeTail
+            name        :   SetTail
             input       :   new_tail (int)
             function    :   update currrent tail to new_tail 
         */        
-        void changeTail(int new_tail);
+        void SetTail(int new_tail);
         /*
-            name        :   changeHead
+            name        :   SetHead
             input       :   new_head (int)
             function    :   update current head to new_head
         */        
-        void changeHead(int new_head); 
+        void SetHead(int new_head); 
         /*
-            name        :   getArcs
+            name        :   GetArcs
             function    :   return list of Arcs 
             output      :   arcs 
         */        
-        vector <Arc*> getArcs(); 
+        vector <Arc*> GetArcs(); 
         /*
-            name        :   changeCover
+            name        :   SetCover
             input       :   new_cover (int), arc_index (int)
             function    :   update cover from Arc into list of Arcs at arc_index to new_cover 
         */        
-        void changeCover(int new_cover, int arc_index); 
+        void SetCover(int new_cover, int arc_index); 
         /*
-            name        :   split
+            name        :   Split
             input       :   capactity (int)
             function    :   split the Trail's list of Arcs into lists of size at most capacity  
             output      :   list containing all lists of size at most capacity 
         */        
-        vector <Trail> split(int capacity); 
+        vector <Trail> Split(int capacity); 
         /*
-            name        :   subtrailSize
+            name        :   SubtrailSize
             function    :   if there is a subtrail, return its size
             output      :   tail - head
         */        
-        int subtrailSize(); 
+        int SubtrailSize(); 
         /*
-            name        :   numberOfTrailsCorrection
+            name        :   NumberOfTrailsCorrection
             function    :   update number of trails field
         */        
-        void numberOfTrailsCorrection(); 
-
-        Arc* getArc(int index); 
-
+        void NumberOfTrailsCorrection(); 
+        /*
+            name        :   GetArc
+            input       :   arc_index
+            output      :   Arc*
+            function    :   return a pointer to Arc at arc_index
+        */
+        Arc* GetArc(int arc_index); 
 };
 
 #endif

@@ -1,80 +1,80 @@
 #include "Trail.hpp"
 
 Trail::Trail(vector<Arc*> list) {
-    this->arcs = list;
+    this->Arcs = list;
     for(int i=0; i<list.size();i++){
-        list.at(i)->addTrail(); 
+        list.at(i)->AddTrail(); 
     }
-    this->number_of_trails = EMPTY_TRAIL; 
-    this->head = EMPTY_TRAIL;
-    this->tail = EMPTY_TRAIL;
+    this->NumberOfTrails = EMPTY_TRAIL; 
+    this->Head = EMPTY_TRAIL;
+    this->Tail = EMPTY_TRAIL;
 }
 
-void Trail::print() {
-    for(int i = 0; i < this->arcs.size(); i++) {  
+void Trail::Print() {
+    for(int i = 0; i < this->Arcs.size(); i++) {  
         cout <<"trail   :   " << i << endl;
-        this->arcs.at(i)->print();
+        this->Arcs.at(i)->Print();
     }
     cout << endl;
 }
 
-int Trail::size(){
-    return this->arcs.size(); 
+int Trail::Size(){
+    return this->Arcs.size(); 
 }
 
-int Trail::getHead(){
-    return this->head;  
+int Trail::GetHead(){
+    return this->Head;  
 }
 
-int Trail::getTail(){
-    return this->tail; 
+int Trail::GetTail(){
+    return this->Tail; 
 }
 
-vector <Arc*> Trail::getArcs(){
-    return this->arcs; 
+vector <Arc*> Trail::GetArcs(){
+    return this->Arcs; 
 } 
 
-int Trail::getNumberOfTrails(){
-    return this->number_of_trails; 
+int Trail::GetNumberOfTrails(){
+    return this->NumberOfTrails; 
 }
 
-int Trail::coveredBy(int index){ 
-    return this->arcs.at(index)->coveredBy(); 
+int Trail::CoveredBy(int index){ 
+    return this->Arcs.at(index)->CoveredBy(); 
 }
 
-void Trail::changeTail(int new_tail){
-    this->tail = new_tail; 
+void Trail::SetTail(int new_tail){
+    this->Tail = new_tail; 
 }
 
-void Trail::changeCover(int new_cover, int arc_index){
-    this->arcs.at(arc_index)->changeCover(new_cover); 
+void Trail::SetCover(int new_cover, int arc_index){
+    this->Arcs.at(arc_index)->SetCover(new_cover); 
 }
 
-void Trail::changeHead(int new_head){ 
-    this->head = new_head; 
+void Trail::SetHead(int new_head){ 
+    this->Head = new_head; 
 }
 
-int Trail::subtrailSize(){
-    if( this->tail != EMPTY_TRAIL && this->tail > this->head){
-        return this->tail - this->head;
+int Trail::SubtrailSize(){
+    if( this->Tail != EMPTY_TRAIL && this->Tail > this->Head){
+        return this->Tail - this->Head;
     }
     else return EMPTY_TRAIL; 
 }
 
-void Trail::numberOfTrailsCorrection(){
-    this->number_of_trails = 0;
-    for(int i=0; i<this->arcs.size(); i++){
-        this->number_of_trails += this->arcs.at(i)->getNumberOfTrails(); 
+void Trail::NumberOfTrailsCorrection(){
+    this->NumberOfTrails = 0;
+    for(int i=0; i<this->Arcs.size(); i++){
+        this->NumberOfTrails += this->Arcs.at(i)->GetNumberOfTrails(); 
     }
 }
 
-vector <Trail> Trail::split(int capacity){ 
+vector <Trail> Trail::Split(int capacity){ 
     int current =0, previous = 0; 
     vector <Arc*> aux_arcs= {};  
     vector <Trail> list_of_trails; 
-    for(int i=0; i<this->arcs.size(); i = i + capacity){ 
-        for(int j=0; (j < capacity) && ((i+j) < this->arcs.size()); j++){
-            aux_arcs.push_back(this->arcs.at(j+i)); 
+    for(int i=0; i<this->Arcs.size(); i = i + capacity){ 
+        for(int j=0; (j < capacity) && ((i+j) < this->Arcs.size()); j++){
+            aux_arcs.push_back(this->Arcs.at(j+i)); 
         }
         Trail new_trail(aux_arcs);
         list_of_trails.push_back(new_trail);
@@ -83,6 +83,6 @@ vector <Trail> Trail::split(int capacity){
     return list_of_trails; 
 }
 
-Arc* Trail::getArc(int index){
-    return this->arcs.at(index); 
+Arc* Trail::GetArc(int arc_index){
+    return this->Arcs.at(arc_index); 
 }

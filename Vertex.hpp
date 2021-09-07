@@ -3,12 +3,21 @@
 
 class Vertex {
     private:
-        int number;
+        int Number;
 
     public:
-        Vertex(int vertex_number);
         Vertex();
-        int getNumber();
+        /*
+            name        :   Vertex
+            input       :   vertex_number
+            function    :   build a Vertex object
+        */
+        Vertex(int vertex_number);
+        /*
+            name        :   GetNumber
+            output      :   this.Number
+        */        
+        int GetNumber();
 };
 
 

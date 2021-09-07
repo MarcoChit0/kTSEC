@@ -1,13 +1,14 @@
 #include "Vertex.hpp"
 
 Vertex::Vertex(int Vertex_number) {
-    this->number = Vertex_number;
+    this->Number = Vertex_number;
 }
 
-Vertex::Vertex() {
-    this->number = -1;
+int Vertex::GetNumber() {
+    return this->Number;
 }
 
-int Vertex::getNumber() {
-    return this->number;
+Vertex::Vertex()
+{
+    this->Number = -1;
 }

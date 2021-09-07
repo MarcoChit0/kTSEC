@@ -13,11 +13,11 @@
 
 using namespace std;  
 
-Set algorithm_for_NEMO( Set trails, int capacity);
+Set AlgorithmForNEMO( Set trails, int capacity);
 
 // if a is subtrail of b 
 //      then return true 
 //      else return false
-bool isSubtrail(vector <Arc*> a, vector <Arc*> b);
+bool IsSubtrail(vector <Arc*> a, vector <Arc*> b);
 
 #endif
