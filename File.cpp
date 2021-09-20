@@ -127,3 +127,39 @@ void WriteTrailFile(string file_name, Set output_set)
     }
     
 }
+//- -------------------------------------
+
+Trail GenerateRandomTrail(Graph graph)
+{
+    if(graph.GetAdjacencyList().size()>0){
+        bool match = false;
+        int randomValue;
+        do
+        {
+            // gera um num aleatório pertencente ao intervalo [valorDoPrimeiro, valorDoUltimo]
+            randomValue = rand() % graph.GetAdjacencyListUnitAt(graph.GetAdjacencyList().size()).GetVertex().GetNumber() + graph.GetAdjacencyListUnitAt(0).GetVertex().GetNumber();
+            // confere se o valor existe. Se existir, o vértice inicial foi escolhido para geração da trilha
+            for(int i =0; i< graph.GetAdjacencyList().size(); i++){
+                if(randomValue == graph.GetAdjacencyList().at(i).GetVertex().GetNumber()){
+                    match = true; 
+                }
+            }
+        } while (!match);
+        // retorna uma lista da busca por largura
+        BFSNodeList bfsList = graph.BFS(Vertex(randomValue));
+        // ... 
+        // criar uma trilha vazia
+        Trail randomTrail = Trail({});
+        // TODO: criar um método que retorne todos os filhos de um determinado nodo a partir de um vetor de nodos
+        // selecionar primeiro nodo aleatório para ser o primeiro elemento de (1):
+        // (1)  dado um nodo 
+        //          escolher um num aleatório dentro do intervalo coberto pelos filhos do nodo
+        //          adicionar esse nodo a trilha 
+        //          escolher outro nodo 
+        //          se outro nodo não tiver filhos, parar 
+        //          se nodo tiver filhos, repetir processo em (1) com o novo nodo
+        // retornar trilha
+    }
+    
+
+}
