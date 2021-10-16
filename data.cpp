@@ -15,40 +15,40 @@ Set AlgorithmForNEMO( Set trails, int capacity){
     unassigned_flows.Sort(); 
     // for each f in UF do... 
 
-    for(int flow=0; flow< unassigned_flows.Size(); flow++){
+    for(int flow=0; flow< unassigned_flows.Size(); flow++){     cout<<"1"<<endl; //DEBUG
         // h <- 0
         unassigned_flows.SetTrailHead(flow, 0);
         // t <- 0 
         unassigned_flows.SetTrailTail(flow, 0);
             // head and tail for each tail in unassigned_flows are already equal to EMPTY_TRAIL = 0
         // while t < |f| do... 
-        while(unassigned_flows.GetTrailTail(flow) < unassigned_flows.GetTrailSize(flow)){ 
+        while(unassigned_flows.GetTrailTail(flow) < unassigned_flows.GetTrailSize(flow)){ cout<<"2"<<endl; //DEBUG
             // g <- coveredBy(f(t))
             int aux = unassigned_flows.CoveredBy(flow, unassigned_flows.GetTrailTail(flow));
             // if g = null, then...
-            if (aux == NO_COVER){
+            if (aux == NO_COVER){cout<<"3"<<endl; //DEBUG
                 // t <- t + 1
                 unassigned_flows.SetTrailTail(flow, (unassigned_flows.GetTrailTail(flow) + 1));
             }
             // else...
-            else{
+            else{cout<<"4"<<endl; //DEBUG
                 // if subtrail(S(g),f), then... 
                 sol.GetTrailArcs(aux);
                 unassigned_flows.GetTrailArcs(flow);
-                if(IsSubtrail(sol.GetTrailArcs(aux), unassigned_flows.GetTrailArcs(flow))){
+                if(IsSubtrail(sol.GetTrailArcs(aux), unassigned_flows.GetTrailArcs(flow))){cout<<"5"<<endl; //DEBUG
                     // t <- t + |S(g)|
                     unassigned_flows.SetTrailTail(flow, (sol.GetTrailArcs(aux).size() + unassigned_flows.GetTrailTail(flow) -1)); 
                     // S(g) <- null
                     sol.DeleteTrail(aux); 
                 }
                 // else...
-                else{
+                else{cout<<"6"<<endl; //DEBUG
                     // if |f(h:t)| > 0, then... 
-                    if(unassigned_flows.SubtrailSize(flow)){
+                    if(unassigned_flows.SubtrailSize(flow)){cout<<"7"<<endl; //DEBUG
                         // S <- S u f(h:t) 
                         sol.AddTrail(unassigned_flows.GetTrail(flow)); 
                         // for each a in f(h:t) do... 
-                        for(int i= unassigned_flows.GetTrailHead(flow); i < unassigned_flows.GetTrailTail(flow); i++) {
+                        for(int i= unassigned_flows.GetTrailHead(flow); i < unassigned_flows.GetTrailTail(flow); i++) {cout<<"8"<<endl; //DEBUG
                             // CoveredBy(a) <- c
                             sol.SetCover(cover_index, i, flow); 
                         }
@@ -58,7 +58,7 @@ Set AlgorithmForNEMO( Set trails, int capacity){
                         unassigned_flows.SetTrailHead(flow, unassigned_flows.GetTrailTail(flow)); 
                     }
                     // else... 
-                    else{ 
+                    else{ cout<<"9"<<endl; //DEBUG
                         // h <- h + 1
                         unassigned_flows.SetTrailHead(flow, unassigned_flows.GetTrailHead(flow) + 1);
                         // t <- h
@@ -69,11 +69,11 @@ Set AlgorithmForNEMO( Set trails, int capacity){
         }
 
         // if |f(h:t)| > 0, then... 
-        if(unassigned_flows.SubtrailSize(flow)){
+        if(unassigned_flows.SubtrailSize(flow)){cout<<"10"<<endl; //DEBUG
             // S <- S u f(h:t) 
             sol.AddTrail(unassigned_flows.GetTrail(flow));
             // for each a in f(h:t) do... 
-            for(int i=0; i < (unassigned_flows.GetTrailTail(flow) - unassigned_flows.GetTrailHead(flow ) ); i++) {
+            for(int i=0; i < (unassigned_flows.GetTrailTail(flow) - unassigned_flows.GetTrailHead(flow ) ); i++) {cout<<"11"<<endl; //DEBUG
                 sol.SetCover(cover_index, i, flow); 
             }
             // c <- c + 1
